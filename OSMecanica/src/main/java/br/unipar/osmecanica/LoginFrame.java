@@ -11,9 +11,9 @@ import javax.swing.*;
  * @author Daniel
  */
 public class LoginFrame extends javax.swing.JFrame {
-
-    private final String USUARIO = "unipar";
-    private final String SENHA = "unipar";
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< TA AQUI >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    private String USUARIO = "unipar";
+    private String SENHA = "unipar";
     
     
     /**
@@ -40,6 +40,7 @@ public class LoginFrame extends javax.swing.JFrame {
         tfSenha = new javax.swing.JTextField();
         btEntrar = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,13 +52,9 @@ public class LoginFrame extends javax.swing.JFrame {
         lbUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbUsuario.setText("Usuario");
 
-        tfUsuario.setText("unipar");
-
         lbSenha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lbSenha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbSenha.setText("Senha");
-
-        tfSenha.setText("unipar");
 
         btEntrar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btEntrar.setText("Entrar");
@@ -75,20 +72,13 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Tem que saber programar em java pra saber o login");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(tfSenha)
-                        .addComponent(tfUsuario)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE))
-                    .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(31, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(lbUsuario)
@@ -97,6 +87,16 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbSenha)
                 .addGap(168, 168, 168))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btEntrar, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                    .addComponent(tfSenha)
+                    .addComponent(tfUsuario)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                    .addComponent(btSair, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,7 +115,9 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addComponent(btEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addContainerGap())
         );
 
         pack();
@@ -158,6 +160,7 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.JButton btEntrar;
     private javax.swing.JButton btSair;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lbSenha;
     private javax.swing.JLabel lbUsuario;
     private javax.swing.JTextField tfSenha;

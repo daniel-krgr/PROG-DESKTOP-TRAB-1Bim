@@ -61,7 +61,12 @@ public class OSMecanicaFrame extends javax.swing.JFrame implements iListener{
         
     }
     public void carregaTabelaServicos(){
-        modelo = new DefaultTableModel();
+        modelo = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
 
         //adiciona colunas na tabela
         modelo.addColumn("Qtd");
@@ -78,7 +83,13 @@ public class OSMecanicaFrame extends javax.swing.JFrame implements iListener{
         
     }
     public void carregaTabelaProdutos(){
-        modelo = new DefaultTableModel();
+        modelo = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
 
         //adiciona colunas na tabela
         modelo.addColumn("Qtd");
@@ -141,13 +152,13 @@ public class OSMecanicaFrame extends javax.swing.JFrame implements iListener{
         jLabel8 = new javax.swing.JLabel();
         tfRua = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        tfNumeroEndereco = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         tfBairro = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         tfCidade = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         cbUF = new javax.swing.JComboBox<>();
+        tfNumeroEndereco = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -158,6 +169,7 @@ public class OSMecanicaFrame extends javax.swing.JFrame implements iListener{
         jLabel17 = new javax.swing.JLabel();
         tfPlaca = new javax.swing.JTextField();
         spAno = new javax.swing.JSpinner();
+        jLabel20 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         tfDescProblema = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
@@ -179,7 +191,7 @@ public class OSMecanicaFrame extends javax.swing.JFrame implements iListener{
 
         jPanel1.setMaximumSize(new java.awt.Dimension(100, 100));
 
-        jLabel5.setText("Telefone");
+        jLabel5.setText("Telefone*");
 
         tfTelefone.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -190,6 +202,7 @@ public class OSMecanicaFrame extends javax.swing.JFrame implements iListener{
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Cliente");
 
         tfCPF.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -199,14 +212,15 @@ public class OSMecanicaFrame extends javax.swing.JFrame implements iListener{
             }
         });
 
-        jLabel1.setText("Nome");
+        jLabel1.setText("Nome*");
 
         jLabel6.setText("E-mail");
 
-        jLabel2.setText("CPF/CNPJ");
+        jLabel2.setText("CPF*");
 
         tfEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Contato");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -237,9 +251,9 @@ public class OSMecanicaFrame extends javax.swing.JFrame implements iListener{
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tfCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -247,9 +261,10 @@ public class OSMecanicaFrame extends javax.swing.JFrame implements iListener{
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setText("Endereço");
 
         jLabel8.setText("Rua");
@@ -262,14 +277,6 @@ public class OSMecanicaFrame extends javax.swing.JFrame implements iListener{
         });
 
         jLabel9.setText("Número");
-
-        tfNumeroEndereco.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tfNumeroEndereco.setFocusable(false);
-        tfNumeroEndereco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfNumeroEnderecoActionPerformed(evt);
-            }
-        });
 
         jLabel10.setText("Bairro");
 
@@ -298,6 +305,13 @@ public class OSMecanicaFrame extends javax.swing.JFrame implements iListener{
             }
         });
 
+        tfNumeroEndereco.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tfNumeroEndereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfNumeroEnderecoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -315,11 +329,11 @@ public class OSMecanicaFrame extends javax.swing.JFrame implements iListener{
                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfNumeroEndereco, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfBairro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfCidade, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbUF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfBairro, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                            .addComponent(tfCidade, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                            .addComponent(cbUF, 0, 161, Short.MAX_VALUE)
+                            .addComponent(tfNumeroEndereco))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -332,9 +346,9 @@ public class OSMecanicaFrame extends javax.swing.JFrame implements iListener{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfNumeroEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(tfNumeroEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
@@ -347,27 +361,32 @@ public class OSMecanicaFrame extends javax.swing.JFrame implements iListener{
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12)
                     .addComponent(cbUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel13.setText("Carro");
 
-        jLabel14.setText("Marca");
+        jLabel14.setText("Marca*");
 
         tfMarca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel15.setText("Modelo");
+        jLabel15.setText("Modelo*");
 
         tfModelo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel16.setText("Ano");
+        jLabel16.setText("Ano*");
 
-        jLabel17.setText("Placa");
+        jLabel17.setText("Placa*");
 
         tfPlaca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         spAno.setModel(new javax.swing.SpinnerNumberModel(1900, 1886, 2025, 1));
         spAno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel20.setText("Informações obrigatórias possuem  *");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -386,6 +405,9 @@ public class OSMecanicaFrame extends javax.swing.JFrame implements iListener{
                     .addComponent(tfModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
                     .addComponent(tfPlaca)
                     .addComponent(spAno)))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -408,7 +430,9 @@ public class OSMecanicaFrame extends javax.swing.JFrame implements iListener{
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel17)
                     .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel20)
+                .addGap(34, 34, 34))
         );
 
         tfDescProblema.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -418,7 +442,7 @@ public class OSMecanicaFrame extends javax.swing.JFrame implements iListener{
             }
         });
 
-        jLabel18.setText("Descrição do problema");
+        jLabel18.setText("Descrição do problema*");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -595,16 +619,15 @@ public class OSMecanicaFrame extends javax.swing.JFrame implements iListener{
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btAdicionarServico, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                    .addComponent(btAdicionarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btRemoverProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbValorTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btGerarOS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(btRemoverServico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btRemoverProduto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btGerarOS, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbValorTotal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btRemoverServico, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btAdicionarServico, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btAdicionarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -621,10 +644,6 @@ public class OSMecanicaFrame extends javax.swing.JFrame implements iListener{
     private void tfRuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfRuaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfRuaActionPerformed
-
-    private void tfNumeroEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNumeroEnderecoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfNumeroEnderecoActionPerformed
 
     private void tfBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfBairroActionPerformed
         // TODO add your handling code here:
@@ -683,9 +702,232 @@ public class OSMecanicaFrame extends javax.swing.JFrame implements iListener{
     }//GEN-LAST:event_btRemoverProdutoActionPerformed
 
     private void btGerarOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGerarOSActionPerformed
-        // TODO add your handling code here:
+        if (tfNome.getText().trim().isEmpty() || tfCPF.getText().trim().isEmpty() ||
+                tfTelefone.getText().trim().isEmpty() || tfMarca.getText().trim().isEmpty() ||
+                tfModelo.getText().trim().isEmpty() || tfPlaca.getText().trim().isEmpty() ||
+                spAno.getValue() == null || tfDescProblema.getText().trim().isEmpty()){
+
+            JOptionPane.showMessageDialog(this,
+                    "Preencha os dados obrigatórios do cliente e do veículo para gerar a OS.",
+                    "Dados incompletos",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if(tfNome.getText().trim().length()>100 || tfNome.getText().trim().length()<3){
+            JOptionPane.showMessageDialog(this,
+                    "O nome do cliente deve ter entre 3 e 100 caracteres.",
+                    "Dados inválidos",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if(tfCPF.getText().trim().length() != 11){
+            JOptionPane.showMessageDialog(this,
+                    "O CPF do cliente deve ter exatamente 11 caracteres.",
+                    "Dados inválidos",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if(tfCPF.getText().trim().contains(".") || tfCPF.getText().trim().contains("-")){
+            JOptionPane.showMessageDialog(this,
+                    "O CPF do cliente não deve conter '.' ou '-'.",
+                    "Dados inválidos",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (!tfCPF.getText().trim().matches("\\d+")) {
+            JOptionPane.showMessageDialog(this,
+                    "O CPF deve conter apenas números.",
+                    "Dados inválidos",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if(tfTelefone.getText().trim().length() < 10 || tfTelefone.getText().trim().length() > 15){
+            JOptionPane.showMessageDialog(this,
+                    "O telefone do cliente deve ter entre 10 e 15 caracteres.",
+                    "Dados inválidos",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if(tfTelefone.getText().trim().contains("-") || tfTelefone.getText().trim().contains("(") ||
+                tfTelefone.getText().trim().contains(")") || !tfTelefone.getText().trim().matches("\\d+") ){
+            JOptionPane.showMessageDialog(this,
+                    "O telefone do cliente deve ter apenas números e não deve conter '-' ou '()'.",
+                    "Dados inválidos",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (!tfEmail.getText().trim().isEmpty()){
+            if(tfEmail.getText().trim().length()>100 || tfEmail.getText().trim().length()<3){
+                JOptionPane.showMessageDialog(this,
+                    "O email do cliente deve ter entre 3 e 100 caracteres.",
+                    "Dados inválidos",
+                    JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if(!tfEmail.getText().contains("@") || !tfEmail.getText().contains(".com")){
+                JOptionPane.showMessageDialog(this,
+                    "O email do cliente deve conter '@' e '.com'.",
+                    "Dados inválidos",
+                    JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+        }
+
+
+
+        if (!tfRua.getText().trim().isEmpty() || !tfNumeroEndereco.getText().trim().isEmpty() ||
+                !tfBairro.getText().trim().isEmpty() || !tfCidade.getText().trim().isEmpty() ||
+                cbUF.getSelectedItem() != null) {
+
+            if (tfRua.getText().trim().length() < 3 || tfRua.getText().trim().length() > 50) {
+                JOptionPane.showMessageDialog(this,
+                        "A rua deve ter entre 3 e 50 caracteres.",
+                        "Dados inválidos",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if (tfNumeroEndereco.getText().trim().length() < 1 || tfNumeroEndereco.getText().trim().length() > 10) {
+                JOptionPane.showMessageDialog(this,
+                        "O número do endereço deve ter entre 1 e 10 caracteres.",
+                        "Dados inválidos",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if (tfBairro.getText().trim().length() < 3 || tfBairro.getText().trim().length() > 50) {
+                JOptionPane.showMessageDialog(this,
+                        "O bairro deve ter entre 3 e 50 caracteres.",
+                        "Dados inválidos",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if (tfCidade.getText().trim().length() < 3 || tfCidade.getText().trim().length() > 50) {
+                JOptionPane.showMessageDialog(this,
+                        "A cidade deve ter entre 3 e 50 caracteres.",
+                        "Dados inválidos",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+        }
+        if(tfMarca.getText().trim().length() < 2 || tfMarca.getText().trim().length() > 50){
+            JOptionPane.showMessageDialog(this,
+                    "A marca do veículo deve ter entre 2 e 50 caracteres.",
+                    "Dados inválidos",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if(tfModelo.getText().trim().length() < 2 || tfModelo.getText().trim().length() > 50){
+            JOptionPane.showMessageDialog(this,
+                    "O modelo do veículo deve ter entre 2 e 50 caracteres.",
+                    "Dados inválidos",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if(tfPlaca.getText().trim().length() != 7){
+            JOptionPane.showMessageDialog(this,
+                    "A placa do veículo deve ter exatamente 7 caracteres.",
+                    "Dados inválidos",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+
+        
+
+
+
+
+
+        if (tbServicos.getRowCount() == 0 && tbProdutos.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Adicione pelo menos um serviço ou produto para gerar a OS.",
+                    "Dados incompletos",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Gerar OS em novo frame
+        gerarOrdemServico();
+
     }//GEN-LAST:event_btGerarOSActionPerformed
 
+    private void tfNumeroEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNumeroEnderecoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfNumeroEnderecoActionPerformed
+
+    private void gerarOrdemServico() {
+        // Criar uma string para exibir a OS
+        String osCompleta = "=== ORDEM DE SERVIÇO ===\n\n";
+
+        // Dados do cliente
+        osCompleta += "DADOS DO CLIENTE:\n";
+        osCompleta += "Nome: " + tfNome.getText() + "\n";
+        osCompleta += "CPF: " + tfCPF.getText() + "\n";
+        osCompleta += "Telefone: " + tfTelefone.getText() + "\n";
+        osCompleta += "Email: " + tfEmail.getText() + "\n";
+
+        // Endereço
+        osCompleta += "\nENDEREÇO:\n";
+        osCompleta += "Rua: " + tfRua.getText() + ", " + "\n";
+        osCompleta += "Número" + tfNumeroEndereco.getText() + "\n";
+        osCompleta += "Bairro: " + tfBairro.getText() + "\n";
+        osCompleta += "Cidade: " + tfCidade.getText() + " - " + cbUF.getSelectedItem() + "\n";
+
+        // Dados do veículo
+        osCompleta += "\nDADOS DO VEÍCULO:\n";
+        osCompleta += "Marca: " + tfMarca.getText() + "\n";
+        osCompleta += "Modelo: " + tfModelo.getText() + "\n";
+        osCompleta += "Ano: " + spAno.getValue() + "\n";
+        osCompleta += "Placa: " + tfPlaca.getText() + "\n";
+
+        // Descrição do problema
+        osCompleta += "\nDESCRIÇÃO DO PROBLEMA:\n";
+        osCompleta += tfDescProblema.getText() + "\n";
+
+        // Serviços
+        osCompleta += "\nSERVIÇOS:\n";
+        double totalServicos = 0;
+        DefaultTableModel modeloServicos = (DefaultTableModel) tbServicos.getModel();
+        for (int i = 0; i < modeloServicos.getRowCount(); i++) {
+            int qtd = Integer.parseInt(modeloServicos.getValueAt(i, 0).toString());
+            String servico = modeloServicos.getValueAt(i, 1).toString();
+            String desc = modeloServicos.getValueAt(i, 2).toString();
+            double preco = Double.parseDouble(modeloServicos.getValueAt(i, 3).toString());
+            double subtotal = qtd * preco;
+            totalServicos += subtotal;
+
+            osCompleta += qtd + "x " + servico + " - " + desc + " - R$ " + String.format("%.2f", preco)
+                    + "  Subtotal = R$ " + String.format("%.2f", subtotal) + "\n";
+        }
+        osCompleta += "Total de serviços: R$ " + String.format("%.2f", totalServicos) + "\n";
+
+        // Produtos
+        osCompleta += "\nPRODUTOS/PEÇAS:\n";
+        double totalProdutos = 0;
+        DefaultTableModel modeloProdutos = (DefaultTableModel) tbProdutos.getModel();
+        for (int i = 0; i < modeloProdutos.getRowCount(); i++) {
+            int qtd = Integer.parseInt(modeloProdutos.getValueAt(i, 0).toString());
+            String produto = modeloProdutos.getValueAt(i, 1).toString();
+            double preco = Double.parseDouble(modeloProdutos.getValueAt(i, 2).toString());
+            double subtotal = qtd * preco;
+            totalProdutos += subtotal;
+
+            osCompleta += qtd + "x " + produto + " - R$ " + String.format("%.2f", preco)
+                    + " =  Subtotal R$ " + String.format("%.2f", subtotal) + "\n";
+        }
+        osCompleta += "Total de produtos: R$ " + String.format("%.2f", totalProdutos) + "\n";
+
+        osCompleta += "\nVALOR TOTAL DA OS: R$ " + String.format("%.2f", valorTotal) + "\n";
+
+        OSFinalizadaFrame frameFinal = new OSFinalizadaFrame(osCompleta);
+        frameFinal.setVisible(true);
+        frameFinal.setLocationRelativeTo(this);
+
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -707,6 +949,7 @@ public class OSMecanicaFrame extends javax.swing.JFrame implements iListener{
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

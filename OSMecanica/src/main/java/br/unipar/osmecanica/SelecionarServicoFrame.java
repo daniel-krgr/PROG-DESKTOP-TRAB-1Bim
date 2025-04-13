@@ -20,7 +20,11 @@ public class SelecionarServicoFrame extends javax.swing.JFrame {
     /**
      * Creates new form SelecionarServicoFrame
      */
-    private DefaultTableModel modelo = new DefaultTableModel();
+    private DefaultTableModel modelo = new DefaultTableModel(){
+        public boolean isCellEditable(int row, int column) {
+        return false;
+    }
+    };
     private int linhaSelecionada = -1;
     
     private List<Servico> listaServicos= new ArrayList<>();
@@ -35,10 +39,27 @@ public class SelecionarServicoFrame extends javax.swing.JFrame {
         carregaTabela();
         listaServicos.add(new Servico("Troca de óleo", "Troca de óleo do motor", 100.00));
         listaServicos.add(new Servico("Alinhamento", "Alinhamento de direção", 80.00));
+        listaServicos.add(new Servico("Balanceamento", "Balanceamento das rodas", 70.00));
+        listaServicos.add(new Servico("Revisão geral", "Verificação e ajuste completo do veículo", 300.00));
+        listaServicos.add(new Servico("Troca de filtro de ar", "Substituição do filtro de ar do motor", 60.00));
+        listaServicos.add(new Servico("Troca de pastilhas", "Substituição das pastilhas de freio", 150.00));
+        listaServicos.add(new Servico("Troca de bateria", "Remoção e instalação de nova bateria", 250.00));
+        listaServicos.add(new Servico("Troca de correia dentada", "Substituição da correia dentada", 400.00));
+        listaServicos.add(new Servico("Higienização do ar condicionado", "Limpeza e higienização do sistema de ar", 120.00));
+        listaServicos.add(new Servico("Polimento de faróis", "Restauração do brilho dos faróis", 90.00));
 
-        modelo.addRow(new Object[]{"Troca de óleo","Troca de óleo do motor",100.00});
-        modelo.addRow(new Object[]{"Alinhamento","Alinhamento de direção",80.75});
-        
+        modelo.addRow(new Object[]{"Troca de óleo", "Troca de óleo do motor", 100.00});
+        modelo.addRow(new Object[]{"Alinhamento", "Alinhamento de direção", 80.00});
+        modelo.addRow(new Object[]{"Balanceamento", "Balanceamento das rodas", 70.00});
+        modelo.addRow(new Object[]{"Revisão geral", "Verificação e ajuste completo do veículo", 300.00});
+        modelo.addRow(new Object[]{"Troca de filtro de ar", "Substituição do filtro de ar do motor", 60.00});
+        modelo.addRow(new Object[]{"Troca de pastilhas", "Substituição das pastilhas de freio", 150.00});
+        modelo.addRow(new Object[]{"Troca de bateria", "Remoção e instalação de nova bateria", 250.00});
+        modelo.addRow(new Object[]{"Troca de correia dentada", "Substituição da correia dentada", 400.00});
+        modelo.addRow(new Object[]{"Higienização do ar condicionado", "Limpeza e higienização do sistema de ar", 120.00});
+        modelo.addRow(new Object[]{"Polimento de faróis", "Restauração do brilho dos faróis", 90.00});
+
+
     }
 
     public void carregaTabela(){

@@ -20,7 +20,11 @@ public class SelecionarProdutoFrame extends javax.swing.JFrame {
     /**
      * Creates new form SelecionarProdutoFrame
      */
-    private DefaultTableModel modelo = new DefaultTableModel();
+    private DefaultTableModel modelo = new DefaultTableModel(){
+        public boolean isCellEditable(int row, int column) {
+        return false;
+    }
+    };
     private int linhaSelecionada = -1;
 
     private List<Produto> listaProdutos = new ArrayList<>();
@@ -34,11 +38,27 @@ public class SelecionarProdutoFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         
         carregaTabela();
-        listaProdutos.add(new Produto("Óleo", 50.00));
-        listaProdutos.add(new Produto("Filtro de óleo", 30.00));
-        
-        modelo.addRow(new Object[]{"Óleo",50.00});
-        modelo.addRow(new Object[]{"Filtro de óleo", 30.00});
+        listaProdutos.add(new Produto("Óleo 5W30", 55.00));
+        listaProdutos.add(new Produto("Filtro de combustível", 40.00));
+        listaProdutos.add(new Produto("Pastilha de freio", 120.00));
+        listaProdutos.add(new Produto("Velas de ignição", 90.00));
+        listaProdutos.add(new Produto("Adesivo de radiador", 25.00));
+        listaProdutos.add(new Produto("Bateria 60Ah", 350.00));
+        listaProdutos.add(new Produto("Fluido de freio DOT 4", 30.00));
+        listaProdutos.add(new Produto("Lâmpada H7", 20.00));
+        listaProdutos.add(new Produto("Pneu 195/60R15", 450.00));
+        listaProdutos.add(new Produto("Filtro de ar", 35.00));
+
+        modelo.addRow(new Object[]{"Óleo 5W30", 55.00});
+        modelo.addRow(new Object[]{"Filtro de combustível", 40.00});
+        modelo.addRow(new Object[]{"Pastilha de freio", 120.00});
+        modelo.addRow(new Object[]{"Velas de ignição", 90.00});
+        modelo.addRow(new Object[]{"Adesivo de radiador", 25.00});
+        modelo.addRow(new Object[]{"Bateria 60Ah", 350.00});
+        modelo.addRow(new Object[]{"Fluido de freio DOT 4", 30.00});
+        modelo.addRow(new Object[]{"Lâmpada H7", 20.00});
+        modelo.addRow(new Object[]{"Pneu 195/60R15", 450.00});
+        modelo.addRow(new Object[]{"Filtro de ar", 35.00});
         
     }
     
