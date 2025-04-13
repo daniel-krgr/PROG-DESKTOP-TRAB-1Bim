@@ -7,6 +7,7 @@ package br.unipar.osmecanica;
 import br.unipar.osmecanica.model.Produto;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,17 +16,20 @@ import javax.swing.table.DefaultTableModel;
  */
 public class SelecionarProdutoFrame extends javax.swing.JFrame {
 
+    private iListener listener;
     /**
      * Creates new form SelecionarProdutoFrame
      */
     private DefaultTableModel modelo = new DefaultTableModel();
     private int linhaSelecionada = -1;
-    
+
     private List<Produto> listaProdutos = new ArrayList<>();
     
     private OSMecanicaFrame osMecanicaFrame;
     
-    public SelecionarProdutoFrame() {
+
+    public SelecionarProdutoFrame(iListener listener) {
+        this.listener = listener;
         initComponents();
         setLocationRelativeTo(null);
         
@@ -70,7 +74,6 @@ public class SelecionarProdutoFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(702, 621));
 
         tbSelecionarProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -98,8 +101,18 @@ public class SelecionarProdutoFrame extends javax.swing.JFrame {
         }
 
         btCancelar.setText("Cancelar");
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelarActionPerformed(evt);
+            }
+        });
 
         btAdicionar.setText("Adicionar");
+        btAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAdicionarActionPerformed(evt);
+            }
+        });
 
         tfQuantidade.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tfQuantidade.addActionListener(new java.awt.event.ActionListener() {
@@ -148,8 +161,51 @@ public class SelecionarProdutoFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tfQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfQuantidadeActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_tfQuantidadeActionPerformed
+
+    private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
+        linhaSelecionada = tbSelecionarProduto.getSelectedRow();
+        
+        if(linhaSelecionada >= 0){
+            Object nomeObject = tbSelecionarProduto.getValueAt(linhaSelecionada, 0);
+            Object valorObject = tbSelecionarProduto.getValueAt(linhaSelecionada, 1);
+
+
+            String nome = (String) nomeObject;
+            double valor = (double) valorObject;
+            
+            int quantidade = 1;
+            try {
+                quantidade = Integer.parseInt(tfQuantidade.getText());
+                if (quantidade <= 0) {
+                    JOptionPane.showMessageDialog(this,
+                            "Quantidade deve ser maior que zero",
+                            "Erro",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this,
+                        "Quantidade deve ser um número inteiro",
+                        "Erro",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            listener.adicionarProduto(quantidade, nome, valor);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Selecione um produto",
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btAdicionarActionPerformed
+
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btCancelarActionPerformed
 
   
 

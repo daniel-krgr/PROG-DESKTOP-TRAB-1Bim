@@ -11,6 +11,6 @@ package br.unipar.osmecanica;
 public class OSMecanica {
 
     public static void main(String[] args) {
-        new OSMecanicaFrame().setVisible(true);
+        new LoginFrame().setVisible(true);
     }
 }

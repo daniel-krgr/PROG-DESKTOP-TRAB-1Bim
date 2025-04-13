@@ -7,6 +7,7 @@ package br.unipar.osmecanica;
 import br.unipar.osmecanica.model.Servico;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class SelecionarServicoFrame extends javax.swing.JFrame {
 
+    private iListener listener;
     /**
      * Creates new form SelecionarServicoFrame
      */
@@ -25,7 +27,8 @@ public class SelecionarServicoFrame extends javax.swing.JFrame {
     
     private OSMecanicaFrame osMecanicaFrame;
     
-    public SelecionarServicoFrame() {
+    public SelecionarServicoFrame(iListener listener) {
+        this.listener = listener;
         initComponents();
         setLocationRelativeTo(null);
         
@@ -97,6 +100,11 @@ public class SelecionarServicoFrame extends javax.swing.JFrame {
         }
 
         btCancelar.setText("Cancelar");
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelarActionPerformed(evt);
+            }
+        });
 
         btAdicionar.setText("Adicionar");
         btAdicionar.addActionListener(new java.awt.event.ActionListener() {
@@ -153,12 +161,58 @@ public class SelecionarServicoFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
-        // TODO add your handling code here:
+        linhaSelecionada = tbSelecionarServico.getSelectedRow();
+
+        if(linhaSelecionada >= 0){
+            Object nomeObject = tbSelecionarServico.getValueAt(linhaSelecionada, 0);
+            Object descObject = tbSelecionarServico.getValueAt(linhaSelecionada, 1);
+            Object valorObject = tbSelecionarServico.getValueAt(linhaSelecionada, 2);
+
+            String nome = (String) nomeObject;
+            String descricao = (String) descObject;
+            double valor = (double) valorObject;
+
+
+
+            int quantidade = 1;
+            try {
+                quantidade = Integer.parseInt(tfQuantidade.getText());
+                if (quantidade <= 0) {
+                    JOptionPane.showMessageDialog(this,
+                            "Quantidade deve ser maior que zero",
+                            "Erro",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this,
+                        "Quantidade deve ser um número inteiro",
+                        "Erro",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            listener.adicionarServico(quantidade, nome, descricao, valor);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Selecione um serviço da tabela.",
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+
+
+
+
     }//GEN-LAST:event_btAdicionarActionPerformed
 
     private void tfQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfQuantidadeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfQuantidadeActionPerformed
+
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btCancelarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdicionar;

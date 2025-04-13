@@ -9,19 +9,21 @@ package br.unipar.osmecanica.model;
  * @author Daniel
  */
 public class Servico {
-    
+
     private String nome;
     private String descricao;
-    private double preco;
+    private double valor;
+
 
     public Servico() {
     }
 
-    public Servico(String nome, String descricao, double preco) {
+    public Servico(String nome, String descricao, double valor) {
         this.nome = nome;
         this.descricao = descricao;
-        this.preco = preco;
+        this.valor = valor;
     }
+
 
     public String getNome() {
         return nome;
@@ -39,20 +41,20 @@ public class Servico {
         this.descricao = descricao;
     }
 
-    public double getPreco() {
-        return preco;
+    public double getValor() {
+        return valor;
     }
 
-    public void setPreco(double preco) {
-        this.preco = preco;
+    public void setValor(double valor) {
+        this.valor = valor;
     }
 
     @Override
     public String toString() {
-        return "servico{" + "nome=" + nome + ", descricao=" + descricao + ", preco=" + preco + '}';
+        return "Servico{" +
+                "nome='" + nome + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", valor=" + valor +
+                '}';
     }
-    
-    
-    
-    
 }

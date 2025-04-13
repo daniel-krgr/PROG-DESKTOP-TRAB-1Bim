@@ -8,59 +8,62 @@ import br.unipar.osmecanica.model.Produto;
 import br.unipar.osmecanica.model.Servico;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFrame;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Daniel
  */
-public class OSMecanicaFrame extends javax.swing.JFrame {
-
+public class OSMecanicaFrame extends javax.swing.JFrame implements iListener{
+    private double valorTotal;
     /**
      * Creates new form OSMecanicaFrame
      */
     
     private DefaultTableModel modelo = new DefaultTableModel();
     private int linhaSelecionada = -1;
-    
+
+
     private List<Servico> listaServicos= new ArrayList<>();
     private List<Produto> listaProdutos = new ArrayList<>();
-    
 
-    
 
-    
-    
+
+
+
+
     public OSMecanicaFrame() {
         
-//        String nome = tfNome.getText();
-//        String cpf = tfCPF.getText();
-//        String telefone = tfTelefone.getText();
-//        String email = tfEmail.getText();
-//        String rua = tfRua.getText();
-//        String numeroEndereco = tfNumeroEndereco.getText();
-//        String bairro = tfBairro.getText();
-//        String cidade = tfCidade.getText();
-//        String uf = cbUF.getSelectedItem().toString();
-//        String marca = tfMarca.getText();
-//        String modelo = tfModelo.getText();
-//        String placa = tfPlaca.getText();
-//        int ano = (int) spAno.getValue();
-
-        
-        
-        
+       
         initComponents();
         setLocationRelativeTo(null);
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         
         
-        carregaTabela();
+        carregaTabelaServicos();
+        carregaTabelaProdutos();
+
+        String nome = tfNome.getText();
+        String cpf = tfCPF.getText();
+        String telefone = tfTelefone.getText();
+        String email = tfEmail.getText();
+        String rua = tfRua.getText();
+        String numeroEndereco = tfNumeroEndereco.getText();
+        String bairro = tfBairro.getText();
+        String cidade = tfCidade.getText();
+        String uf = cbUF.getSelectedItem().toString();
+        String marca = tfMarca.getText();
+        String modelo = tfModelo.getText();
+        String placa = tfPlaca.getText();
+        int ano = (int) spAno.getValue();
+
         
     }
-    public void carregaTabela(){
-        //adiciona colunas na tebela
+    public void carregaTabelaServicos(){
+        modelo = new DefaultTableModel();
+
+        //adiciona colunas na tabela
         modelo.addColumn("Qtd");
         modelo.addColumn("Serviço");
         modelo.addColumn("Descrição");
@@ -73,6 +76,43 @@ public class OSMecanicaFrame extends javax.swing.JFrame {
         tbServicos.getColumnModel().getColumn(2).setPreferredWidth(350);
         tbServicos.getColumnModel().getColumn(3).setPreferredWidth(5);
         
+    }
+    public void carregaTabelaProdutos(){
+        modelo = new DefaultTableModel();
+
+        //adiciona colunas na tabela
+        modelo.addColumn("Qtd");
+        modelo.addColumn("Produto");
+        modelo.addColumn("Preço");
+        tbProdutos.setModel(modelo);
+        
+        //altera a largura das colunas  
+        tbProdutos.getColumnModel().getColumn(0).setPreferredWidth(2);
+        tbProdutos.getColumnModel().getColumn(1).setPreferredWidth(350);
+        tbProdutos.getColumnModel().getColumn(2).setPreferredWidth(5);
+
+
+    }
+
+    public void atualizarValorTotal(){
+        valorTotal = 0;
+
+        DefaultTableModel modeloServicos = (DefaultTableModel) tbServicos.getModel();
+        for (int i = 0; i < tbServicos.getRowCount(); i++) {
+            int qtd = Integer.parseInt(tbServicos.getValueAt(i, 0).toString());
+            double preco = Double.parseDouble(tbServicos.getValueAt(i, 3).toString());
+            valorTotal += qtd * preco;
+        }
+
+        DefaultTableModel modeloProdutos = (DefaultTableModel) tbProdutos.getModel();
+        for (int i = 0; i < tbProdutos.getRowCount(); i++) {
+            int qtd = Integer.parseInt(tbProdutos.getValueAt(i, 0).toString());
+            double preco = Double.parseDouble(tbProdutos.getValueAt(i, 2).toString());
+            valorTotal += qtd * preco;
+        }
+
+        lbValorTotal.setText(String.valueOf(valorTotal));
+
     }
     
 
@@ -119,16 +159,21 @@ public class OSMecanicaFrame extends javax.swing.JFrame {
         tfPlaca = new javax.swing.JTextField();
         spAno = new javax.swing.JSpinner();
         jPanel5 = new javax.swing.JPanel();
+        tfDescProblema = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbServicos = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tbPecas = new javax.swing.JTable();
+        tbProdutos = new javax.swing.JTable();
         btAdicionarServico = new javax.swing.JButton();
         btRemoverServico = new javax.swing.JButton();
         btAdicionarProduto = new javax.swing.JButton();
         btRemoverProduto = new javax.swing.JButton();
+        jLabel19 = new javax.swing.JLabel();
+        lbValorTotal = new javax.swing.JLabel();
+        btGerarOS = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -158,7 +203,7 @@ public class OSMecanicaFrame extends javax.swing.JFrame {
 
         jLabel6.setText("E-mail");
 
-        jLabel2.setText("CPF");
+        jLabel2.setText("CPF/CNPJ");
 
         tfEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -202,7 +247,7 @@ public class OSMecanicaFrame extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jLabel7.setText("Endereço");
@@ -366,17 +411,29 @@ public class OSMecanicaFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel5.setBackground(new java.awt.Color(51, 51, 51));
+        tfDescProblema.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        tfDescProblema.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfDescProblemaActionPerformed(evt);
+            }
+        });
+
+        jLabel18.setText("Descrição do problema");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 337, Short.MAX_VALUE)
+            .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(tfDescProblema)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 288, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfDescProblema, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
@@ -421,7 +478,7 @@ public class OSMecanicaFrame extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(204, 204, 204));
 
-        tbPecas.setModel(new javax.swing.table.DefaultTableModel(
+        tbProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -432,7 +489,7 @@ public class OSMecanicaFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tbPecas);
+        jScrollPane2.setViewportView(tbProdutos);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -453,6 +510,11 @@ public class OSMecanicaFrame extends javax.swing.JFrame {
         });
 
         btRemoverServico.setText("Remover Serviço");
+        btRemoverServico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRemoverServicoActionPerformed(evt);
+            }
+        });
 
         btAdicionarProduto.setText("Adicionar Produto");
         btAdicionarProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -462,6 +524,25 @@ public class OSMecanicaFrame extends javax.swing.JFrame {
         });
 
         btRemoverProduto.setText("Remover Produto");
+        btRemoverProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRemoverProdutoActionPerformed(evt);
+            }
+        });
+
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel19.setText("Valor total: R$");
+
+        lbValorTotal.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbValorTotal.setText("0,00");
+
+        btGerarOS.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btGerarOS.setText("Finalizar");
+        btGerarOS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGerarOSActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -471,7 +552,7 @@ public class OSMecanicaFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -480,13 +561,19 @@ public class OSMecanicaFrame extends javax.swing.JFrame {
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btGerarOS, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lbValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btRemoverServico, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btAdicionarServico, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btRemoverProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -509,10 +596,14 @@ public class OSMecanicaFrame extends javax.swing.JFrame {
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btAdicionarServico, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-                    .addComponent(btRemoverServico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btAdicionarServico, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                     .addComponent(btAdicionarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btRemoverProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btRemoverProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbValorTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btGerarOS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btRemoverServico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -544,22 +635,63 @@ public class OSMecanicaFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_cbUFActionPerformed
 
     private void btAdicionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarProdutoActionPerformed
-        
-        new SelecionarProdutoFrame().setVisible(true);
-        
+
+        SelecionarProdutoFrame produtoFrame = new SelecionarProdutoFrame(this);
+        produtoFrame.setVisible(true);
+
     }//GEN-LAST:event_btAdicionarProdutoActionPerformed
 
     private void btAdicionarServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarServicoActionPerformed
-        
-        new SelecionarServicoFrame().setVisible(true);
-        
+
+        SelecionarServicoFrame servicoFrame = new SelecionarServicoFrame(this);
+        servicoFrame.setVisible(true);
+
     }//GEN-LAST:event_btAdicionarServicoActionPerformed
 
-    
+    private void tfDescProblemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDescProblemaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfDescProblemaActionPerformed
+
+    private void btRemoverServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverServicoActionPerformed
+        int linhaSelecionada = tbServicos.getSelectedRow();
+        if (linhaSelecionada >= 0) {
+            DefaultTableModel modeloServicos = (DefaultTableModel) tbServicos.getModel();
+            listaServicos.remove(linhaSelecionada);
+            modeloServicos.removeRow(linhaSelecionada);
+            atualizarValorTotal();
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Selecione um serviço da tabela.",
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btRemoverServicoActionPerformed
+
+    private void btRemoverProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverProdutoActionPerformed
+        int linhaSelecionada = tbProdutos.getSelectedRow();
+        if (linhaSelecionada >= 0) {
+            DefaultTableModel modeloProdutos = (DefaultTableModel) tbProdutos.getModel();
+            listaProdutos.remove(linhaSelecionada);
+            modeloProdutos.removeRow(linhaSelecionada);
+            atualizarValorTotal();
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Selecione um produto da tabela.",
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btRemoverProdutoActionPerformed
+
+    private void btGerarOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGerarOSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btGerarOSActionPerformed
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdicionarProduto;
     private javax.swing.JButton btAdicionarServico;
+    private javax.swing.JButton btGerarOS;
     private javax.swing.JButton btRemoverProduto;
     private javax.swing.JButton btRemoverServico;
     private javax.swing.JComboBox<String> cbUF;
@@ -572,6 +704,8 @@ public class OSMecanicaFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -588,12 +722,14 @@ public class OSMecanicaFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lbValorTotal;
     private javax.swing.JSpinner spAno;
-    private javax.swing.JTable tbPecas;
+    private javax.swing.JTable tbProdutos;
     private javax.swing.JTable tbServicos;
     private javax.swing.JTextField tfBairro;
     private javax.swing.JTextField tfCPF;
     private javax.swing.JTextField tfCidade;
+    private javax.swing.JTextField tfDescProblema;
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfMarca;
     private javax.swing.JTextField tfModelo;
@@ -603,4 +739,31 @@ public class OSMecanicaFrame extends javax.swing.JFrame {
     private javax.swing.JTextField tfRua;
     private javax.swing.JTextField tfTelefone;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void adicionarServico(int quantidade, String nome, String descricao, double valor) {
+        DefaultTableModel modeloServicos = (DefaultTableModel) tbServicos.getModel();
+        modeloServicos.addRow(new Object[]{quantidade, nome, descricao, valor});
+
+        Servico servico = new Servico(nome, descricao, valor);
+        listaServicos.add(servico);
+
+        atualizarValorTotal();
+
+    }
+
+    @Override
+    public void adicionarProduto(int quantidade, String nome, double valor) {
+        DefaultTableModel modeloProdutos = (DefaultTableModel) tbProdutos.getModel();
+        modeloProdutos.addRow(new Object[]{quantidade, nome, valor});
+
+        Produto produto = new Produto(nome, valor);
+        listaProdutos.add(produto);
+
+        atualizarValorTotal();
+
+    }
+
+
+
 }
